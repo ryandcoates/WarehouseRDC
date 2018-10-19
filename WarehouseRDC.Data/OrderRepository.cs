@@ -2,7 +2,7 @@
 
 namespace WarehouseRDC.Data
 {
-    public class Class1
+    public class OrderRepository
     {
     }
 }
