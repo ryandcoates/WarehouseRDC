@@ -2,21 +2,29 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WarehouseRDC.Business.Test
 {
+
     [TestClass]
     public class OrderServiceTests
     {
+        //Follow the 80/20 rule
         [TestMethod]
-        public class OrderServiceTests
+        void UnresolvedFillOrdersCanBeRetrieved()
         {
-            //Follow the 80/20 rule
-            void UnresolvedFillOrdersCanBeRetrieved()
-            {
-                // Arrange
-                // Act
-                // Assert
-            }
-            void UnresolvedFillOrderCanBeProcessed() { }
-            void ProcessedFillOrderCannontBeModified() { }
+            // Arrange
+            // Act
+            // Assert
+        }
+
+        [TestMethod]
+        void UnresolvedFillOrderCanBeProcessed()
+        {
+
+        }
+
+        [TestMethod]
+        void ProcessedFillOrderCannontBeModified()
+        {
+
         }
     }
 }
