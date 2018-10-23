@@ -28,9 +28,10 @@ namespace WarehouseRDC.Business
             return _orderRepo.GetProcessedOrders();
         }
 
-        public void FullfillOrder()
+        public void FullfillOrder(int id)
         {
-
+            var o = _orderRepo.GetOrderById(id);
+            o.IsFullfilled = true;
         }
     }
 

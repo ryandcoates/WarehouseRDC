@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using WarehouseRDC.Entities;
@@ -13,49 +14,101 @@ namespace WarehouseRDC.Business.Test
     {
         //Follow the 80/20 rule
         [TestMethod]
-        void UnresolvedFillOrdersCanBeRetrieved()
+        public void UnresolvedFillOrdersCanBeRetrieved()
         {
             //arrange
-            var order = new Order
+            var order = new List<Order>
             {
-                Id = "1",
-                Name = "test",
-                IsFullfilled = false
+                new Order
+                {
+                    Id = "1",
+                    Name = "test",
+                    IsFullfilled = false
+                },
+                new Order
+                {
+                    Id = "2",
+                    Name = "test2",
+                    IsFullfilled = false
+                }
+                   
             };
+
             var mockOrderRepo = Substitute.For<IOrdersRepository>();
             mockOrderRepo.GetUnProcessedOrders().Returns(order);
 
             var orderService = new OrdersService(mockOrderRepo);
 
             //act
-            try
-            {
-                IEnumerable<Order>expectedOrders = orderService.GetAllOpenOrders();
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual("Ticket Already Closed", ex.Message);
-                return;
-            }
+
+            List<Order>expectedOrders = orderService.GetAllOpenOrders().ToList();
+
+            
             //assert
-            Assert.Fail("");
+            Assert.AreEqual("1", expectedOrders[0].Id);
+            Assert.AreEqual(2, expectedOrders.Count);
+            Assert.AreEqual(false, expectedOrders[0].IsFullfilled);
+            //return;
         }
 
         [TestMethod]
-        void UnresolvedFillOrderCanBeProcessed()
+        public void UnresolvedFillOrderCanBeProcessed()
         {
-
-        }
-
-        [TestMethod]
-        void ProcessedFillOrderCannontBeModified()
-        {
-            var order = new Order
+            //arrange
+            var order = new List<Order>
             {
-                Id = "1",
-                Name = "test",
-                IsFullfilled = false
+                new Order
+                {
+                    Id = "1",
+                    Name = "test",
+                    IsFullfilled = false
+                },
+                new Order
+                {
+                    Id = "2",
+                    Name = "test2",
+                    IsFullfilled = false
+                }
+
             };
+
+            var mockOrderRepo2 = Substitute.For<IOrdersRepository>();
+            mockOrderRepo2.GetUnProcessedOrders().Returns(order);
+
+            var orderService = new OrdersService(mockOrderRepo2);
+
+            //act
+
+            List<Order> expectedOrders = orderService.GetAllOpenOrders().ToList();
+
+            orderService.FullfillOrder(1);
+
+
+            //assert
+            Assert.AreEqual(true, expectedOrders[0].IsFullfilled);
+            Assert.AreEqual(false, expectedOrders[1].IsFullfilled);
+
+        }
+
+        [TestMethod]
+        public void ProcessedFillOrderCannontBeModified()
+        {
+            var order = new List<Order>
+            {
+                new Order
+                {
+                    Id = "1",
+                    Name = "test",
+                    IsFullfilled = false
+                },
+                new Order
+                {
+                    Id = "2",
+                    Name = "test2",
+                    IsFullfilled = true
+                }
+            };
+
             var mockOrderRepo = Substitute.For<IOrdersRepository>();
             mockOrderRepo.GetUnProcessedOrders().Returns(order);
 
