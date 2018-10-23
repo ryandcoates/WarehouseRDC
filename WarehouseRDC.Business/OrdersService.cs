@@ -31,7 +31,16 @@ namespace WarehouseRDC.Business
         public void FullfillOrder(int id)
         {
             var o = _orderRepo.GetOrderById(id);
-            o.IsFullfilled = true;
+
+            if (!o.IsFullfilled)
+            {
+                o.IsFullfilled = true;
+            }
+            else
+            {
+                Exception e = new Exception("Order already fullfilled");
+                throw e;
+            }
         }
     }
 

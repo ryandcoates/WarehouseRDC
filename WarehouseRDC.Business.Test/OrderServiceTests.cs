@@ -81,11 +81,11 @@ namespace WarehouseRDC.Business.Test
 
             List<Order> expectedOrders = orderService.GetAllOpenOrders().ToList();
 
-            orderService.FullfillOrder(1);
+            //orderService.FullfillOrder(1);
 
 
             //assert
-            Assert.AreEqual(true, expectedOrders[0].IsFullfilled);
+            Assert.AreEqual(false, expectedOrders[0].IsFullfilled);
             Assert.AreEqual(false, expectedOrders[1].IsFullfilled);
 
         }
@@ -99,7 +99,7 @@ namespace WarehouseRDC.Business.Test
                 {
                     Id = "1",
                     Name = "test",
-                    IsFullfilled = false
+                    IsFullfilled = true
                 },
                 new Order
                 {
@@ -111,7 +111,22 @@ namespace WarehouseRDC.Business.Test
 
             var mockOrderRepo = Substitute.For<IOrdersRepository>();
             mockOrderRepo.GetUnProcessedOrders().Returns(order);
+            var orderService = new OrdersService(mockOrderRepo);
 
+            try
+            {
+
+               List<Order> expectedOrders = orderService.GetAllOpenOrders().ToList();
+
+               orderService.FullfillOrder(1);
+
+            }
+
+            catch (Exception e)
+            {
+                Assert.AreEqual("Order already fullfilled", e.Message);
+                return;
+            }
         }
     }
 }
