@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WarehouseRDC.Business;
+using WarehouseRDC.Data;
+using WarehouseRDC.Entities;
 
 namespace WarehouseRDC.Web
 {
@@ -32,6 +36,9 @@ namespace WarehouseRDC.Web
             });
 
 
+            services.AddTransient<OrdersService>();
+            services.AddTransient<IOrdersRepository, OrdersRepository>();
+            services.AddTransient<IDbConnection>(x => null);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
