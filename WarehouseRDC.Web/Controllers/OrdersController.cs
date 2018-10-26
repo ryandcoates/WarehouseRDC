@@ -34,7 +34,7 @@ namespace WarehouseRDC.Web.Controllers
 
         public IActionResult FullfillOrder()
         {
-
+            return View();
         }
     }
 }
