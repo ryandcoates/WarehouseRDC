@@ -33,7 +33,7 @@ namespace WarehouseRDC.Data
             return null;
         }
 
-        public Order GetOrderById(int id)
+        public Order GetOrderById(string id)
         {
             return _db.QuerySingle<Order>("SELECT * FROM orders WHERE id = {0};", id);   
         }

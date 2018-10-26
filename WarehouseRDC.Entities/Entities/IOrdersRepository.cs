@@ -6,7 +6,7 @@ namespace WarehouseRDC.Entities
 {
     public interface IOrdersRepository
     {
-        Order GetOrderById(int id);
+        Order GetOrderById(string id);
         void UpdateOrder(Order o);
         Order CreateOrder(Order data);
         IEnumerable<Order> GetUnProcessedOrders();

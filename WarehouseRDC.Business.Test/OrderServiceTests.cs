@@ -55,7 +55,7 @@ namespace WarehouseRDC.Business.Test
         public void UnresolvedFillOrderCanBeProcessed()
         {
             //arrange
-            var order = new List<Order>
+            var orders = new List<Order>
             {
                 new Order
                 {
@@ -72,20 +72,20 @@ namespace WarehouseRDC.Business.Test
 
             };
 
-            var mockOrderRepo2 = Substitute.For<IOrdersRepository>();
-            mockOrderRepo2.GetUnProcessedOrders().Returns(order);
-
-            var orderService = new OrdersService(mockOrderRepo2);
+            var mockOrderRepo = Substitute.For<IOrdersRepository>();
+            mockOrderRepo.GetUnProcessedOrders().Returns(orders.ToList());
+            mockOrderRepo.GetOrderById(orders[0].Id).Returns(orders[0]);
+            var orderService = new OrdersService(mockOrderRepo);
 
             //act
 
-            List<Order> expectedOrders = orderService.GetAllOpenOrders().ToList();
 
-            //orderService.FullfillOrder(1);
+            orderService.FullfillOrder("1");
+            var expectedOrders = orderService.GetAllOpenOrders().ToList();
 
 
             //assert
-            Assert.AreEqual(false, expectedOrders[0].IsFullfilled);
+            Assert.AreEqual(true, expectedOrders[0].IsFullfilled);
             Assert.AreEqual(false, expectedOrders[1].IsFullfilled);
 
         }
@@ -111,14 +111,15 @@ namespace WarehouseRDC.Business.Test
 
             var mockOrderRepo = Substitute.For<IOrdersRepository>();
             mockOrderRepo.GetUnProcessedOrders().Returns(order);
-            var orderService = new OrdersService(mockOrderRepo);
+            mockOrderRepo.GetOrderById("1").Returns(order[0]);
+            OrdersService orderService = new OrdersService(mockOrderRepo);
 
             try
             {
 
                List<Order> expectedOrders = orderService.GetAllOpenOrders().ToList();
 
-               orderService.FullfillOrder(1);
+               orderService.FullfillOrder("1");
 
             }
 
