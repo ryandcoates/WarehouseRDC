@@ -37,7 +37,7 @@ namespace WarehouseRDC.Web
 
 
             services.AddTransient<OrdersService>();
-            services.AddTransient<IOrdersRepository, OrdersRepository>();
+            services.AddTransient<IOrdersRepository, mockOrdersRepository>();
             services.AddTransient<IDbConnection>(x => null);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

@@ -31,7 +31,7 @@ namespace WarehouseRDC.Business.Test
                     Name = "test2",
                     IsFullfilled = false
                 }
-                   
+
             };
 
             var mockOrderRepo = Substitute.For<IOrdersRepository>();

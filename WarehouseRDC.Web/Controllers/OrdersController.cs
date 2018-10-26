@@ -30,5 +30,11 @@ namespace WarehouseRDC.Web.Controllers
             var outView = _ordersService.GetAllOpenOrders();
             return View(outView);
         }
+
+
+        public IActionResult FullfillOrder()
+        {
+
+        }
     }
 }
