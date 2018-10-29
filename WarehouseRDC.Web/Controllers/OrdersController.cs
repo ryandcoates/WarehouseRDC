@@ -7,7 +7,7 @@ using WarehouseRDC.Business;
  
 namespace WarehouseRDC.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class OrdersController : Controller
     {
@@ -30,11 +30,27 @@ namespace WarehouseRDC.Web.Controllers
             var outView = _ordersService.GetAllOpenOrders();
             return View(outView);
         }
-
-
-        public IActionResult FullfillOrder()
+        [HttpGet("Details/{id}")]
+        public IActionResult Details(string id)
         {
-            return View();
+            var outView = _ordersService.GetOrderByID(id);
+            return View(outView);
+        }
+
+        [HttpPost]
+        public IActionResult FullfillOrder([FromForm]string id)
+        {
+            _ordersService.FullfillOrder(id);
+            var outView = _ordersService.GetAllOpenOrders().ToList();
+
+            if (outView.Count > 0)
+            {
+                return RedirectToAction("GetOpenOrders");
+            }
+            else
+            {
+                return RedirectToAction("GetAllOrders");
+            }
         }
     }
 }

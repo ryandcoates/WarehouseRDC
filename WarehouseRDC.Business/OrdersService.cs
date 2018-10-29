@@ -35,12 +35,18 @@ namespace WarehouseRDC.Business
             if (!o.IsFullfilled)
             {
                 o.IsFullfilled = true;
+                _orderRepo.UpdateOrder(o);
             }
             else
             {
                 Exception e = new Exception("Order already fullfilled");
                 throw e;
             }
+        }
+
+        public Order GetOrderByID(string id)
+        {
+            return _orderRepo.GetOrderById(id);
         }
     }
 

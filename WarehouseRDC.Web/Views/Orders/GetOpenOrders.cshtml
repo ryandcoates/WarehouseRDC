@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<WarehouseRDC.Entities.Entities.Order>
 
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
 
@@ -43,7 +40,11 @@
                 @Html.DisplayFor(modelItem => item.IsFullfilled)
             </td>
             <td>
-                @Html.ActionLink("Fullfill", "Fullfill", new { /* id=item.PrimaryKey */ })
+                @using (Html.BeginForm("FullfillOrder", "Orders", FormMethod.Post, new { id= "fullfillOrder" }))
+                {
+                    <input hidden value="@item.Id" name="id" />
+                    <button type="submit">Fulfill</button>
+                }
             </td>
         </tr>
 }
