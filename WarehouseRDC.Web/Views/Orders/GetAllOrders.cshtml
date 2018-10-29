@@ -9,9 +9,10 @@
     <title>GetAllOrders</title>
 </head>
 <body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <p>
+        @Html.ActionLink("Create", "Create", "Orders", new { })
+
+    </p>
 <table class="table">
     <thead>
         <tr>

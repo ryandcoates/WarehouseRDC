@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WarehouseRDC.Business;
- 
+using WarehouseRDC.Entities.Entities;
+
 namespace WarehouseRDC.Web.Controllers
 {
     [Route("[controller]")]
@@ -38,6 +39,17 @@ namespace WarehouseRDC.Web.Controllers
         }
 
         [HttpPost]
+        public IActionResult Create(Order o)
+        {
+            if (ModelState.IsValid)
+            {
+                Order _o = _ordersService.CreateOrder(o);
+                return RedirectToAction(nameof(GetAllOrders));
+            }
+            return View(o);
+        }
+
+        [HttpPost("Create")]
         public IActionResult FullfillOrder([FromForm]string id)
         {
             _ordersService.FullfillOrder(id);

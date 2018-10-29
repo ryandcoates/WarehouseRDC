@@ -48,6 +48,11 @@ namespace WarehouseRDC.Business
         {
             return _orderRepo.GetOrderById(id);
         }
+
+        public Order CreateOrder(Order data)
+        {
+            return _orderRepo.CreateOrder(data);
+        }
     }
 
 }

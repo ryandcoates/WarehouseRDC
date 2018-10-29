@@ -18,7 +18,8 @@ namespace WarehouseRDC.Data
             {
                 Id = mockOrderDB.NextId,
                 Name = data.Name,
-                IsFullfilled = false
+                IsFullfilled = false,
+                CreatedAt = DateTime.UtcNow
 
             };
             var successful = true;
@@ -55,6 +56,7 @@ namespace WarehouseRDC.Data
             var b = GetOrderById(o.Id);
             b.Name = o.Name;
             b.IsFullfilled = o.IsFullfilled;
+            b.ProcessedAt = DateTime.UtcNow;
         }
 
         public IEnumerable<Order> GetProcessedOrders()
@@ -71,42 +73,54 @@ namespace WarehouseRDC.Data
             {
                 Id = "1",
                 Name = "First Order!",
-                IsFullfilled = false
+                IsFullfilled = false,
+                CreatedAt = DateTime.UtcNow
             },
 
             new Order()
             {
                 Id = "2",
                 Name = "Bought more stuff",
-                IsFullfilled = false
+                IsFullfilled = false,
+                CreatedAt = DateTime.UtcNow
+
             },
 
             new Order()
             {
                 Id = "3",
                 Name = "Bought domr more stuff",
-                IsFullfilled = false
+                IsFullfilled = false,
+                CreatedAt = DateTime.UtcNow
+
             },
 
             new Order()
             {
                 Id = "4",
                 Name = "Bought more stuff and shipped!",
-                IsFullfilled = true
+                IsFullfilled = true,
+                CreatedAt = DateTime.UtcNow.AddDays(-1),
+                ProcessedAt = DateTime.UtcNow
+
             },
 
             new Order()
             {
                 Id = "5",
                 Name = "shipped more stuff",
-                IsFullfilled = true
+                IsFullfilled = true,
+                CreatedAt = DateTime.UtcNow.AddDays(-1),
+                ProcessedAt = DateTime.UtcNow
             },
 
             new Order()
             {
                 Id = "6",
                 Name = "Bought even more stuff",
-                IsFullfilled = true
+                IsFullfilled = true,
+                CreatedAt = DateTime.UtcNow.AddDays(-1),
+                ProcessedAt = DateTime.UtcNow
             },
 
         };
