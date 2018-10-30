@@ -10,6 +10,6 @@ namespace WarehouseRDC.Entities.Entities
         public string Name { get; set; }
         public bool IsFullfilled { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime ProcessedAt { get; set; }
+        public DateTime? ProcessedAt { get; set; }
     }
 }

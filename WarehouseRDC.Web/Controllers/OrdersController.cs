@@ -9,7 +9,7 @@ using WarehouseRDC.Entities.Entities;
 namespace WarehouseRDC.Web.Controllers
 {
     [Route("[controller]")]
-    [ApiController]
+    [Controller]
     public class OrdersController : Controller
     {
         private OrdersService _ordersService;
@@ -38,7 +38,7 @@ namespace WarehouseRDC.Web.Controllers
             return View(outView);
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public IActionResult Create(Order o)
         {
             if (ModelState.IsValid)
@@ -46,10 +46,15 @@ namespace WarehouseRDC.Web.Controllers
                 Order _o = _ordersService.CreateOrder(o);
                 return RedirectToAction(nameof(GetAllOrders));
             }
-            return View(o);
+            return RedirectToAction("GetOpenOrders");
         }
 
-        [HttpPost("Create")]
+        [HttpGet("Create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
         public IActionResult FullfillOrder([FromForm]string id)
         {
             _ordersService.FullfillOrder(id);

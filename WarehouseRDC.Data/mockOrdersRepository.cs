@@ -26,6 +26,7 @@ namespace WarehouseRDC.Data
 
             if (successful)
             {
+                mockOrderDB.Orders.Add(newOrder);
                 return newOrder;
             }
             return null;
@@ -74,7 +75,8 @@ namespace WarehouseRDC.Data
                 Id = "1",
                 Name = "First Order!",
                 IsFullfilled = false,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                ProcessedAt = null
             },
 
             new Order()
@@ -82,16 +84,18 @@ namespace WarehouseRDC.Data
                 Id = "2",
                 Name = "Bought more stuff",
                 IsFullfilled = false,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                ProcessedAt = null
 
             },
 
             new Order()
             {
                 Id = "3",
-                Name = "Bought domr more stuff",
+                Name = "Bought some more stuff",
                 IsFullfilled = false,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                ProcessedAt = null
 
             },
 
